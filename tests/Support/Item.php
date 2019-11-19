@@ -33,8 +33,19 @@ class Item extends Model
         'price',
     ];
 
+    public $allowForceDelete = true;
+
     public function purchases(): HasMany
     {
         return $this->hasMany(Purchase::class);
+    }
+
+    /**
+     * @see \Illuminatech\DbSafeDelete\SafeDeletes::forceDeleteAllowed()
+     * @return bool whether force delete is allowed for this particular model.
+     */
+    public function forceDeleteAllowed(): bool
+    {
+        return $this->allowForceDelete;
     }
 }

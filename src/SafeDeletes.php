@@ -7,10 +7,15 @@
 
 namespace Illuminatech\DbSafeDelete;
 
+use Illuminate\Database\QueryException;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * SafeDeletes
+ * SafeDeletes is an enhanced version of {@see \Illuminate\Database\Eloquent\SoftDeletes}.
+ *
+ * It changes `delete()` method in the way it attempts to invoke force delete, and, if it fails - falls back to soft delete.
+ *
+ * @see \Illuminate\Database\Eloquent\SoftDeletes
  *
  * @mixin \Illuminate\Database\Eloquent\Model
  */
@@ -38,7 +43,7 @@ trait SafeDeletes
             return $this->setKeysForSaveQuery($this->newModelQuery())->forceDelete();
         }
 
-        if (! $this->safeDeleting) {
+        if (! $this->safeDeleting || ! $this->forceDeleteAllowed()) {
             return $this->runSoftDelete();
         }
 
@@ -47,13 +52,50 @@ trait SafeDeletes
             $this->exists = false;
 
             return $result;
-        } catch (\Throwable $e) {
+        } catch (QueryException $e) {
             return $this->runSoftDelete();
         }
     }
 
+    /**
+     * Indicates whether this particular model is allowed to be force deleted or not.
+     *
+     * @return bool whether force delete is allowed for this particular model.
+     */
+    public function forceDeleteAllowed(): bool
+    {
+        return true;
+    }
+
+    /**
+     * Marks this model as "deleted" without actual record removal.
+     *
+     * @return bool|null
+     */
     public function softDelete()
     {
-        // @todo
+        $originSafeDeleting = $this->safeDeleting;
+
+        $this->safeDeleting = false;
+
+        return tap($this->delete(), function () use ($originSafeDeleting) {
+            $this->safeDeleting = $originSafeDeleting;
+        });
+    }
+
+    /**
+     * Attempts to invoke force delete, and, if it fails - falls back to soft delete.
+     *
+     * @return bool|null
+     */
+    public function safeDelete()
+    {
+        $originSafeDeleting = $this->safeDeleting;
+
+        $this->safeDeleting = true;
+
+        return tap($this->delete(), function () use ($originSafeDeleting) {
+            $this->safeDeleting = $originSafeDeleting;
+        });
     }
 }

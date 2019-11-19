@@ -1,7 +1,7 @@
 {
     "name": "illuminatech/db-safedelete",
     "description": "Allows continuing route matching in case bound model does not exist",
-    "keywords": ["laravel", "database", "eloquent", "model", "safe", "soft", "delete"],
+    "keywords": ["laravel", "database", "eloquent", "model", "safe", "smart", "soft", "delete"],
     "license": "BSD-3-Clause",
     "support": {
         "issues": "https://github.com/illuminatech/db-safedelete/issues",
