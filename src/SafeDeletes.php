@@ -47,13 +47,23 @@ trait SafeDeletes
             return $this->runSoftDelete();
         }
 
+        $this->getConnection()->beginTransaction();
+
         try {
             $result = $this->setKeysForSaveQuery($this->newModelQuery())->forceDelete();
             $this->exists = false;
 
+            $this->getConnection()->commit();
+
             return $result;
         } catch (QueryException $e) {
+            $this->getConnection()->rollBack();
+
             return $this->runSoftDelete();
+        } catch (\Throwable $e) {
+            $this->getConnection()->rollBack();
+
+            throw $e;
         }
     }
 
