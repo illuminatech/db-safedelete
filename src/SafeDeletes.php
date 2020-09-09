@@ -7,8 +7,8 @@
 
 namespace Illuminatech\DbSafeDelete;
 
-use Illuminate\Database\QueryException;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\QueryException;
 
 /**
  * SafeDeletes is an enhanced version of {@see \Illuminate\Database\Eloquent\SoftDeletes}.

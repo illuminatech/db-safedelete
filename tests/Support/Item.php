@@ -3,8 +3,8 @@
 namespace Illuminatech\DbSafeDelete\Test\Support;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminatech\DbSafeDelete\SafeDeletes;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminatech\DbSafeDelete\SafeDeletes;
 
 /**
  * @property int $id
