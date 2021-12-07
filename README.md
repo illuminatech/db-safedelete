@@ -12,7 +12,7 @@ For license information check the [LICENSE](LICENSE.md)-file.
 
 [![Latest Stable Version](https://img.shields.io/packagist/v/illuminatech/db-safedelete.svg)](https://packagist.org/packages/illuminatech/db-safedelete)
 [![Total Downloads](https://img.shields.io/packagist/dt/illuminatech/db-safedelete.svg)](https://packagist.org/packages/illuminatech/db-safedelete)
-[![Build Status](https://travis-ci.org/illuminatech/db-safedelete.svg?branch=master)](https://travis-ci.org/illuminatech/db-safedelete)
+[![Build Status](https://github.com/illuminatech/db-safedelete/workflows/build/badge.svg)](https://github.com/illuminatech/db-safedelete/actions)
 
 
 Installation
