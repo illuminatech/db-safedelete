@@ -1,8 +1,8 @@
 Laravel Eloquent Safe Delete
 ============================
 
-1.0.5 Under Development
------------------------
+1.0.5, March 25, 2024
+---------------------
 
 - Enh: Added support for "illuminate/database" 11.0 (klimov-paul)
 
